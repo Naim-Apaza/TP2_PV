@@ -1,31 +1,37 @@
 package ar.edu.unju.fi.ejercicio5.model;
 
-import java.time.LocalDate;
-
 import ar.edu.unju.fi.ejercicio5.interfaces.Pago;
+
+import java.text.NumberFormat;
+import java.time.LocalDate;
 
 public class PagoEfectivo implements Pago {
 	private double montoPagado;
-	private LocalDate fechaDePagoDate;
+	private LocalDate fechaDePago;
 
 	@Override
 	public void realizarPago(double monto) {
-		this.montoPagado = monto - (monto * 0.10);
+		setMontoPagado(getMontoPagado() - (getMontoPagado() * 0.10));
 	}
 
 	@Override
 	public void imprimirRecibo() {
-		System.out.println("Fecha de pago: ");
+		NumberFormat monto = NumberFormat.getCurrencyInstance();
+		System.out.println(
+				"Fecha de pago: " + getFechaDePago() + '\n' + "Monto pagado: " + monto.format(getMontoPagado()) + '\n');
 	}
 
 	public PagoEfectivo() {
-		super();
 	}
 
-	public PagoEfectivo(double montoPagado, LocalDate fechaDePagoDate) {
-		super();
+	public PagoEfectivo(double montoPagado, LocalDate fechaDePago) {
 		this.montoPagado = montoPagado;
-		this.fechaDePagoDate = fechaDePagoDate;
+		this.fechaDePago = fechaDePago;
+	}
+
+	@Override
+	public String toString() {
+		return "PagoEfectivo{" + "montoPagado=" + montoPagado + ", fechaDePago=" + fechaDePago + '}';
 	}
 
 	public double getMontoPagado() {
@@ -36,12 +42,11 @@ public class PagoEfectivo implements Pago {
 		this.montoPagado = montoPagado;
 	}
 
-	public LocalDate getFechaDePagoDate() {
-		return fechaDePagoDate;
+	public LocalDate getFechaDePago() {
+		return fechaDePago;
 	}
 
-	public void setFechaDePagoDate(LocalDate fechaDePagoDate) {
-		this.fechaDePagoDate = fechaDePagoDate;
+	public void setFechaDePago(LocalDate fechaDePago) {
+		this.fechaDePago = fechaDePago;
 	}
-
 }
